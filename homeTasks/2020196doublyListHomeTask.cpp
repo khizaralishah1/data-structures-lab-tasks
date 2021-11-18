@@ -21,6 +21,7 @@ public:
     static void showAll();
     static void remove(int=1); // reason = 0 will only find the student. Otherwise remove
     static void removeAll();
+    static void reverseList();
 };
 
 int mainMenu();
@@ -34,6 +35,25 @@ int main()
         runs = mainMenu();
 
     return 0;
+}
+
+void student::reverseList()
+{
+    student* cur = head;
+    student* temp;
+    
+    head = last;
+    last = cur;
+    
+    while(cur != nullptr)
+    {
+        temp = cur->prev;
+        cur->prev = cur->next;
+        cur->next = temp;
+        cur = cur->prev;
+    }
+
+    cout << "\n\nSuccessfully reversed the list\n\n\n";
 }
 
 void student::addAtStart()
@@ -188,7 +208,7 @@ void student::create(student*& ptr)
 
 int mainMenu()
 {
-    cout << "\n\n0. Exit Program\n1. Add a student at start of list\n2. Add a student at the end of list\n3. Add a student between the nodes\n4. Show all students\n5. Find a student\n6. Remove a student\n7. Remove all students\n\n";
+    cout << "\n\n0. Exit Program\n1. Add a student at start of list\n2. Add a student at the end of list\n3. Add a student between the nodes\n4. Show all students\n5. Find a student\n6. Remove a student\n7. Remove all students\n8. Reverse the list\n\n";
     cout << "Your choice: ";
 
     int choice;
@@ -218,6 +238,9 @@ int mainMenu()
             break;
         case 7:
             student::removeAll();
+            break;
+        case 8:
+            student::reverseList();
             break;
         default:
             cout << "Invalid choice. Try again...\n\n";
